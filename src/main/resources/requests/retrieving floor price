@@ -1,0 +1,8 @@
+curl --request GET \
+     --url 'https://api.opensea.io/api/v1/asset/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/5147/listings?limit=20' \
+     --header 'Accept: application/json' \
+     --header 'X-API-KEY: cf0d1253459943a49bd4d2c50def5367'
+
+
+ Floor price is a function of assets i.e token/contract and will need to be fetched accordingly.
+ Per token/per contract.
