@@ -18,4 +18,8 @@ public interface CollectorService {
 
     //Opensea service layer interaction.
     public boolean addStats(final String contractAddress);
+
+    public boolean findStatsperContract(final String contractAddress);
+
+    public boolean fetchAllContracts(final int offset, final int limit);
 }

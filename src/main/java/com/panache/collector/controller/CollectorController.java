@@ -44,6 +44,30 @@ public class CollectorController {
         collectorService.addStats(addStats.contractAddress);
     }
 
+    /**
+     * Post request to create customer information int the system.
+     * @param addContract
+     * @return
+     */
+    @PostMapping("/fetchStats")
+    public void fetchStats(final @RequestBody AddContract addContract){
+        log.info("Saving data for contract -> " + gson.toJson(addContract));
+        collectorService.findStatsperContract(addContract.contractAddress);
+    }
+
+
+    /**
+     * Post request to create customer information int the system.
+     * @param offset, limit
+     * @return
+     */
+    @GetMapping ("/getAllContracts")
+    //@RequestParam(name = "id") String fooId, @RequestParam String name
+    public void getAllContracts(@RequestParam(name = "offset") int offset, @RequestParam(name = "limit") int limit ){
+        log.info("getting all contracts");
+        collectorService.fetchAllContracts(offset, limit);
+    }
+
 
 
 
