@@ -9,14 +9,16 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class NFT_Successful_Purchase {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.IDENTITY)
+    //private Long id;
 
+    @Id
     public String txnId;
+
     public String soldFrom;
     public String soldTo; //this is a soldTo issue ??
-    public long price;
+    public double price; // i need to make it double, shouldn't i ?
     public String priceETH;
     public String contractAddress;
     public String tokenId;

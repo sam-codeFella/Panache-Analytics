@@ -1,7 +1,6 @@
 package com.panache.collector.service;
 
 import com.google.gson.Gson;
-import com.panache.collector.controller.CollectorController;
 import com.panache.collector.dto.AssetsResponse;
 import com.panache.collector.dto.Event;
 import com.panache.collector.dto.Stats;
@@ -17,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 
-//service class to handle all openSea related service calls.
+//service class to handle all openSea related calls.
 @Component
 public class OpenSeaServiceImpl {
 
@@ -36,8 +34,15 @@ public class OpenSeaServiceImpl {
 
     private Set<String> cursorStore;
 
+
     //pass the url and the call will be made from here.
     //I can shift this to another class as well, like a feign controller.
+    //maybe later on when required.
+    /**
+     * Method : Makes the actual api call and passes back the response.
+     * @param url
+     * @return Response
+     */
     public Response execute(String url) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -117,6 +122,10 @@ public class OpenSeaServiceImpl {
         return result;
     }
 
+    /**
+     * Method : Makes the actual api call to store the stats for a given contractAddress.
+     * @param contractAddress
+     */
     public boolean addStats(String contractAddress){
         //get collection slug first.
         boolean result = false;
@@ -132,6 +141,7 @@ public class OpenSeaServiceImpl {
             assetsResponse = gson.fromJson(responseBody.string(), AssetsResponse.class);
             log.info(assetsResponse.assets.get(0).collection.slug);
             String slug = assetsResponse.assets.get(0).collection.slug;
+            //once i have the slug , I can go ahead and get the Stats for that Collection.
             Stats stats = collectionStats(slug);
             mapper.NFTCollectionStatsMapper(contractAddress, slug, stats);
             // now after this i need to make another call.

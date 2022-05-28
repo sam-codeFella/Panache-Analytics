@@ -14,5 +14,6 @@ public class CollectorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CollectorApplication.class, args);
 	}
+	//bored ape -> 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D
 
 }

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,7 +30,7 @@ public class Mapper {
     private CollectorService collectorService;
 
     private List<NFT_Successful_Purchase> purchaseList;
-    private BigInteger base = new BigInteger("1000000000000000000");
+    private BigDecimal base = new BigDecimal("1000000000000000000");
 
     public long convertToDate(String timestamp){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -42,6 +43,12 @@ public class Mapper {
         return date.toInstant().getEpochSecond();
     }
 
+
+    //BigDecimal base2 =  new BigDecimal("1000000000000000000");
+    //BigDecimal val  = new BigDecimal(asset_events.total_price);
+    ////val = val.divide(base2);
+    //double shams = (val.divide(base2)).doubleValue();
+    ////System.out.println(shams);
     public void NFTPurchaseMapper(Event event){
         purchaseList = new ArrayList<>();
         //collectorService = new CollectorServiceImpl(); //only for runner.
@@ -49,9 +56,9 @@ public class Mapper {
             for(Asset_Events asset_events : event.asset_events){
                 try{
                    NFT_Successful_Purchase purchase = new NFT_Successful_Purchase();
-                   BigInteger total_price = new BigInteger(asset_events.total_price);
-                   BigInteger price = total_price.divide(base);
-                   purchase.price = price.longValue(); //no. of eth's spent.
+                   BigDecimal total_price = new BigDecimal(asset_events.total_price);
+                   BigDecimal price = total_price.divide(base);
+                   purchase.price = price.doubleValue(); //no. of eth's spent.
                    purchase.priceETH = asset_events.payment_token.usd_price; //price of eth at the time.
                    purchase.contractAddress = asset_events.asset.asset_contract.address;
                    purchase.contractName = asset_events.asset.asset_contract.name;

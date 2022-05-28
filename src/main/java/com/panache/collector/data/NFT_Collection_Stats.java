@@ -8,10 +8,11 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 public class NFT_Collection_Stats {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.IDENTITY)
+    //private Long id;
 
+    @Id
     public String contract;
     public String collection;
     public float one_day_volume;
